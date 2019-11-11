@@ -1,5 +1,5 @@
-FROM centos:7.4
-RUN yum install -y autoconf \
+FROM centos:7.6.1810
+RUN set -x && yum install -y gcc-c++ make automake && yum install -y autoconf && yum install -y wget \
 	&& wget https://github.com/Kitware/CMake/releases/download/v3.16.0-rc3/cmake-3.16.0-rc3.tar.gz \
 	&& tar zxvf cmake-3.16.0-rc3.tar.gz \
 	&& cd cmake-3.16.0-rc3 \
