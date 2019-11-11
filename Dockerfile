@@ -9,4 +9,5 @@ RUN yum install -y libtool &&  wget https://github.com/google/protobuf/releases/
 	&& tar zxvf protobuf-all-3.6.1.tar.gz \
 	&& cd protobuf-3.6.1 && ./autogen.sh \
 	&& ./configure && make && make install
-RUN yum install -y git && git clone https://github.com/fanux/libra.git && git checkout fanux-testnet
+RUN yum install -y zlib gcc-c++.x86_64 git which && git clone https://github.com/fanux/libra.git && cd libra && git checkout fanux-testnet
+RUN cd libra && ./scripts/dev_setup.sh 
