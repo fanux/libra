@@ -1,13 +1,14 @@
 FROM centos:7.6.1810
-RUN set -x && yum install -y gcc-c++ make automake && yum install -y autoconf && yum install -y wget \
-	&& wget https://github.com/Kitware/CMake/releases/download/v3.16.0-rc3/cmake-3.16.0-rc3.tar.gz \
-	&& tar zxvf cmake-3.16.0-rc3.tar.gz \
-	&& cd cmake-3.16.0-rc3 \
-	&& yum install -y openssl-devel \
+RUN yum install -y unzip make automake autoconf wget openssl-devel libtool zlib gcc-c++.x86_64 git which 
+RUN wget https://github.com/Kitware/CMake/releases/download/v3.15.5/cmake-3.15.5.tar.gz \
+	&& tar zxvf cmake-3.15.5.tar.gz \
+	&& cd cmake-3.15.5 \
 	&& ./configure && make && make install
-RUN yum install -y libtool &&  wget https://github.com/google/protobuf/releases/download/v3.6.1/protobuf-all-3.6.1.tar.gz \
-	&& tar zxvf protobuf-all-3.6.1.tar.gz \
-	&& cd protobuf-3.6.1 && ./autogen.sh \
-	&& ./configure && make && make install
-RUN yum install -y zlib gcc-c++.x86_64 git which && git clone https://github.com/fanux/libra.git && cd libra && git checkout fanux-testnet
-RUN cd libra && ./scripts/dev_setup.sh 
+RUN PROTOC_VERSION=3.8.0 \
+    && PROTOC_ZIP=protoc-$PROTOC_VERSION-linux-x86_64.zip \
+    && curl -OL https://github.com/protocolbuffers/protobuf/releases/download/v$PROTOC_VERSION/$PROTOC_ZIP \
+    && unzip -o $PROTOC_ZIP -d /usr/local bin/protoc \
+    && unzip -o $PROTOC_ZIP -d /usr/local include/* \
+    && rm -f $PROTOC_ZIP
+RUN git clone https://github.com/fanux/libra.git && cd libra && git checkout fanux-testnet \
+	&& ./scripts/dev_setup.sh 
