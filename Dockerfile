@@ -5,8 +5,8 @@ RUN set -x && yum install -y gcc-c++ make automake && yum install -y autoconf &&
 	&& cd cmake-3.16.0-rc3 \
 	&& yum install -y openssl-devel \
 	&& ./configure && make && make install
-RUN wget https://github.com/google/protobuf/releases/download/v3.6.1/protobuf-all-3.6.1.tar.gz \
+RUN yum install -y libtool &&  wget https://github.com/google/protobuf/releases/download/v3.6.1/protobuf-all-3.6.1.tar.gz \
 	&& tar zxvf protobuf-all-3.6.1.tar.gz \
-	&& ./autogen.sh \
+	&& cd protobuf-3.6.1 && ./autogen.sh \
 	&& ./configure && make && make install
 RUN yum install -y git && git clone https://github.com/fanux/libra.git && git checkout fanux-testnet
