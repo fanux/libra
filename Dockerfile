@@ -10,5 +10,8 @@ RUN PROTOC_VERSION=3.8.0 \
     && unzip -o $PROTOC_ZIP -d /usr/local bin/protoc \
     && unzip -o $PROTOC_ZIP -d /usr/local include/* \
     && rm -f $PROTOC_ZIP
-RUN git clone https://github.com/fanux/libra.git && cd libra && git checkout fanux-testnet \
-	&& ./scripts/dev_setup.sh 
+RUN git clone https://github.com/fanux/libra.git \
+	&& cd libra && git checkout fanux-testnet \
+	&& ./scripts/dev_setup.sh && ./scripts/cli/build_cli.sh
+WORKDIR /libra
+CMD ./target/debug/client --host ac.testnet.libra.org --port 8000 -s ./scripts/cli/consensus_peers.config.toml
