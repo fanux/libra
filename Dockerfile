@@ -12,7 +12,7 @@ RUN PROTOC_VERSION=3.8.0 \
     && rm -f $PROTOC_ZIP
 RUN git clone https://github.com/fanux/libra.git \
 	&& cd libra && git checkout fanux-testnet \
-	&& ./scripts/dev_setup.sh && ./scripts/cli/build.sh && ./scripts/cli/build.sh
+	&& ./scripts/dev_setup.sh && ./scripts/cli/build_release.sh && ./scripts/cli/build_release.sh
 
 FROM centos:7.6.1810
 WORKDIR /libra
