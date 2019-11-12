@@ -40,3 +40,4 @@ fi
 
 #cargo run -p client $RELEASE -- $RUN_PARAMS "$@"
 cargo build -p client 
+cargo build -p libra_swarm
