@@ -19,4 +19,4 @@ failure = { path = "../failure-ext", version = "0.1.0", package = "libra-failure
 
 [dev-dependencies]
 rusty-fork = "0.2.1"
-tokio = "0.2.0-alpha.6"
+tokio = "1.8.4"
